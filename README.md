@@ -34,7 +34,7 @@ mkdir /mnt/target
 ```
 - Debootstrap trixie:
 ```
-debootstrap --arch=armel trixie /mnt/target http://deb.debian.org/debian
+debootstrap --arch=armel --include=ca-certificates trixie /mnt/target http://deb.debian.org/debian
 ```
 - Mount the kernel filesystems:
 ```
@@ -82,9 +82,9 @@ rm excito-release-trixie.deb
 apt-get update
 apt-get -y dist-upgrade
 ```
-- Install kernel and b3 utils:
+- Install tasksel, kernel and b3 utils:
 ```
-apt-get -y install bubba3-kernel b3-utils
+apt-get -y install tasksel bubba3-kernel b3-utils
 ```
 - Install locales and standard system tools:
 ```
