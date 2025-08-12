@@ -66,11 +66,26 @@ export PS1="(chroot) $PS1"
 
 ### APT configuration and standard package install
 
-- Add security repository to `sources.list`:
+- Create the apt repository configuration file in the new format :
 ```
-cat >> /etc/apt/sources.list << EOF
-deb http://deb.debian.org/debian-security trixie-security main
+cat > /etc/apt/sources.list.d/debian.sources << EOF
+deb http://deb.debian.org/debian trixie main
+Types: deb
+URIs: https://deb.debian.org/debian
+Suites: trixie trixie-updates
+Components: main
+Signed-By: /usr/share/keyrings/debian-archive-keyring.gpg
+
+Types: deb
+URIs: https://security.debian.org/debian-security
+Suites: trixie-security
+Components: main non-free-firmware
+Signed-By: /usr/share/keyrings/debian-archive-keyring.gpg
 EOF
+```
+- Remove original `sources.list` file:
+```
+rm -f /etc/apt/sources.list
 ```
 - Install the `excito-release-trixie` package:
 ```
@@ -79,16 +94,16 @@ rm excito-release-trixie.deb
 ```
 - Update apt cache and ugprade the system:
 ```
-apt-get update
-apt-get -y dist-upgrade
+apt update
+apt -y dist-upgrade
 ```
 - Install tasksel, kernel and b3 utils:
 ```
-apt-get -y install tasksel bubba3-kernel b3-utils
+apt -y install tasksel bubba3-kernel b3-utils
 ```
 - Install locales and standard system tools:
 ```
-apt-get -y install locales
+apt -y install locales
 tasksel install --new-install standard ssh-server
 ```
 
@@ -153,7 +168,7 @@ systemctl set-default multi-user.target
 
 - Empty apt cache:
 ```
-apt-get clean
+apt clean
 ```
 - Remove previously created ssh keys and disable the SSH server (`first-boot` will re-create keys and re-enable the server):
 ```
