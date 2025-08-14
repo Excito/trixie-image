@@ -38,7 +38,7 @@ debootstrap --arch=armel --include=ca-certificates trixie /mnt/target http://deb
 ```
 - Mount the kernel filesystems:
 ```
-mount -t proc none /mnt/target/proc
+[ -d /mnt/target/proc/1 ] || mount -t proc none /mnt/target/proc
 mount -t sysfs none /mnt/target/sys
 mount -o bind /dev /mnt/target/dev
 mount -t devpts none /mnt/target/dev/pts
