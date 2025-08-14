@@ -69,7 +69,6 @@ export PS1="(chroot) $PS1"
 - Create the apt repository configuration file in the new format :
 ```
 cat > /etc/apt/sources.list.d/debian.sources << EOF
-deb http://deb.debian.org/debian trixie main
 Types: deb
 URIs: https://deb.debian.org/debian
 Suites: trixie trixie-updates
